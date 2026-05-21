@@ -1,0 +1,199 @@
+# Packly Developer Preview
+
+Packly Developer Preview distributes the Packly CLI and Packly Context Router MCP server for early users who want to reduce repeated `CLAUDE.md`, `AGENTS.md`, skills, and rules copy-paste across AI coding tools.
+
+This repository is the public distribution and feedback channel. The product source repository remains private during the Developer Preview.
+
+## What You Install
+
+- `packly`: local CLI for Pack install/update/disable/rollback, readiness checks, and Pack store management.
+- `packly-mcp`: local stdio MCP server launched by Claude Code, Codex, or Cursor.
+
+Packly MCP runs on your machine through stdin/stdout. It is not a hosted server.
+
+```text
+Claude / Codex / Cursor
+  -> starts local packly-mcp command
+  -> talks over stdio MCP
+  -> reads Packly local store and workspace metadata
+```
+
+## Current Release
+
+- Version: `v0.59.1`
+- Status: Developer Preview / prerelease
+- Binary artifacts:
+  - macOS Apple Silicon (`aarch64-apple-darwin`)
+  - Linux x64 (`x86_64-unknown-linux-gnu`)
+  - Windows x64 (`x86_64-pc-windows-msvc`)
+- Source code: not published in this distribution repository
+- License: Packly Developer Preview License
+
+## Install
+
+Homebrew on macOS Apple Silicon or Linux x64:
+
+```sh
+brew tap Orvek-dev/packly
+brew install packly
+```
+
+Install script for macOS Apple Silicon or Linux x64:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/Orvek-dev/packly-developer-preview/main/install.sh
+```
+
+Install:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/Orvek-dev/packly-developer-preview/main/install.sh | sh
+```
+
+Add Packly to your shell if the installer asks:
+
+```sh
+export PATH="$HOME/.packly/bin:$PATH"
+```
+
+Windows x64 users can download the zip from the [v0.59.1 release](https://github.com/Orvek-dev/packly-developer-preview/releases/tag/v0.59.1), verify it against `checksums.txt`, and add the extracted directory to `PATH`. The shell installer also supports Git Bash/MSYS/Cygwin environments.
+
+The installer verifies a pinned SHA-256 digest for the default `v0.59.1`
+`checksums.txt` before verifying the selected archive. See
+[docs/integrity.md](docs/integrity.md).
+
+Verify:
+
+```sh
+packly --version
+packly mcp status --mcp-bin "$HOME/.packly/bin/packly-mcp"
+packly mcp readiness --no-workspace --mcp-bin "$HOME/.packly/bin/packly-mcp"
+```
+
+## Connect MCP
+
+Generate client setup snippets:
+
+```sh
+packly mcp config --client all --mcp-bin "$HOME/.packly/bin/packly-mcp"
+```
+
+Claude Code:
+
+```sh
+claude mcp add --transport stdio --scope user packly -- "$HOME/.packly/bin/packly-mcp" --session default
+claude mcp list
+```
+
+Codex:
+
+```sh
+packly mcp install-client --client codex --mcp-bin "$HOME/.packly/bin/packly-mcp" --dry-run
+packly mcp install-client --client codex --mcp-bin "$HOME/.packly/bin/packly-mcp"
+```
+
+Cursor:
+
+```sh
+packly mcp install-client --client cursor --mcp-bin "$HOME/.packly/bin/packly-mcp" --dry-run
+packly mcp install-client --client cursor --mcp-bin "$HOME/.packly/bin/packly-mcp"
+```
+
+## Try A Sample Pack
+
+Import one sample Pack:
+
+```sh
+packly pack import-url https://github.com/Orvek-dev/packly-developer-preview/tree/main/packs/small-pr-planner
+packly pack list
+```
+
+Then ask your MCP client to use Packly for a task such as:
+
+```text
+Use Packly to plan this change as small PRs.
+```
+
+Sample Packs:
+
+- `small-pr-planner`: split a large task into reviewable PR-sized chunks.
+- `review-loop`: run a test/review/fix loop before completion.
+- `security-guardrails`: check secrets, risky commands, dependency and release risks.
+
+## MCP Tools
+
+The preview MCP server currently exposes:
+
+```text
+packly_find_packs
+packly_diagnose_agent_surface
+packly_lint_agent_surface
+packly_plan_agent_surface_sync
+packly_get_context_budget
+packly_get_session_usage_budget
+packly_explain_context_routing
+packly_start_task
+packly_session_summary
+packly_prepare_cloud_sync
+packly_get_pack_brief
+packly_activate_pack
+packly_read_pack_context
+packly_get_workspace_status
+packly_plan_pack_install
+packly_plan_pack_update
+packly_request_pack_install
+packly_request_pack_update
+packly_list_approval_requests
+packly_get_approval_request
+packly_list_active_packs
+packly_clear_active_packs
+packly_list_session_history
+```
+
+## Safety Model
+
+Packly MCP is designed as a context router and planning surface.
+
+- MCP can read Pack context that you imported into the local Packly store.
+- MCP install/update tools return plans or approval requests.
+- MCP does not directly apply Pack files to your workspace.
+- CLI apply commands own file mutation, snapshot, rollback, and drift checks.
+- Client config install for Codex/Cursor supports `--dry-run` and creates backups before writes.
+
+See [docs/safety.md](docs/safety.md).
+
+## Integrity And License
+
+Only `v0.59.1` is supported for this public Developer Preview. Older prerelease
+artifacts should not be used.
+
+The Packly CLI/MCP binaries are distributed under the
+[Packly Developer Preview License](LICENSE). The source code remains private.
+
+This preview does not yet include detached signatures, Sigstore attestations,
+SBOMs, macOS Developer ID notarization, or Windows code signing. Homebrew pins
+release asset SHA-256 values, and the shell installer pins the release checksum
+manifest digest for the default release.
+
+## Feedback
+
+Do not paste source code, secret values, `.env` files, private Pack contents, or raw AI conversations into issues.
+
+For install failures, open an issue with:
+
+```sh
+packly --version
+packly doctor --no-workspace --mcp-bin "$HOME/.packly/bin/packly-mcp" --bundle
+packly mcp status --mcp-bin "$HOME/.packly/bin/packly-mcp"
+packly mcp readiness --no-workspace --mcp-bin "$HOME/.packly/bin/packly-mcp"
+```
+
+Review the generated doctor bundle before posting. Packly redacts common local paths and omits source code, Pack bodies, secret values, and raw conversations by design, but public issues should still be checked manually.
+
+See [docs/feedback.md](docs/feedback.md).
+
+## Known Limitations
+
+- Developer Preview is not the stable Packly product.
+- Public source is not included in this distribution repository.
+- macOS Intel and Linux ARM64 binaries are not published yet.

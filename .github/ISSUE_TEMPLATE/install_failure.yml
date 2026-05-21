@@ -1,0 +1,47 @@
+name: Install or MCP connection failure
+description: Report install, binary, MCP status, or client connection failure.
+title: "[install] "
+labels: ["install", "developer-preview"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before posting, review any `packly doctor --bundle` output yourself. Do not include source code, secret values, `.env` files, private Pack contents, raw AI conversations, or full personal filesystem paths.
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS
+      options:
+        - macOS Apple Silicon
+        - macOS Intel
+        - Linux
+        - Windows
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: client
+    attributes:
+      label: MCP client
+      options:
+        - Claude Code
+        - Codex
+        - Cursor
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: status
+    attributes:
+      label: Redacted diagnostics
+      description: Paste only redacted output from packly --version, packly doctor --bundle, packly mcp status, and packly mcp readiness. Review the doctor bundle before posting.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: stopped
+    attributes:
+      label: Where did it stop?
+      description: Describe the exact step that failed. Do not include secrets or source code.
+    validations:
+      required: true

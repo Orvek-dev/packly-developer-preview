@@ -1,0 +1,36 @@
+name: Workflow feedback
+description: Report whether Packly helped route context for a real task.
+title: "[workflow] "
+labels: ["workflow", "developer-preview"]
+body:
+  - type: dropdown
+    id: client
+    attributes:
+      label: MCP client
+      options:
+        - Claude Code
+        - Codex
+        - Cursor
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: pack
+    attributes:
+      label: Pack used
+      placeholder: small-pr-planner@0.1.0
+  - type: textarea
+    id: task
+    attributes:
+      label: Task attempted
+      description: Summarize the task. Do not paste private source code.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened?
+      description: Did Packly find, activate, or read the right context? Did you still need to paste instructions?
+    validations:
+      required: true
+

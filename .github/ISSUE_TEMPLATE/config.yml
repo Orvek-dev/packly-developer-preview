@@ -1,0 +1,6 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: https://github.com/Orvek-dev/packly-developer-preview/security/policy
+    about: Do not post secrets or exploitable security details in public issues.
+

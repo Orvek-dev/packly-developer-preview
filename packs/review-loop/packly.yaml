@@ -1,0 +1,33 @@
+schema: 0
+id: review-loop
+name: Review Loop
+version: 0.1.0
+features:
+  - testing
+  - review
+targets:
+  - generic
+files:
+  - from: files/PACK.md
+    to: .packly/samples/review-loop.md
+    mode: replace
+metadata:
+  context:
+    summary: Run an implementation, test, review, and fix loop before reporting completion.
+    domains:
+      - testing
+      - code review
+      - regression prevention
+    triggers:
+      - fix failing tests
+      - review my change
+      - stabilize this branch
+      - verify before release
+    non_goals:
+      - broad redesign
+      - release signing
+    context_budget: 2k
+    priority: 45
+    recommended_modules:
+      - files/PACK.md
+

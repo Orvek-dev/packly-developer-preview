@@ -1,0 +1,33 @@
+schema: 0
+id: small-pr-planner
+name: Small PR Planner
+version: 0.1.0
+features:
+  - planning
+  - review
+targets:
+  - generic
+files:
+  - from: files/PACK.md
+    to: .packly/samples/small-pr-planner.md
+    mode: replace
+metadata:
+  context:
+    summary: Split large AI coding work into small, reviewable PR-sized chunks.
+    domains:
+      - planning
+      - implementation
+      - review
+    triggers:
+      - large feature
+      - broad refactor
+      - unclear PR scope
+      - too many files touched
+    non_goals:
+      - writing code directly
+      - approving implementation without review
+    context_budget: 2k
+    priority: 50
+    recommended_modules:
+      - files/PACK.md
+

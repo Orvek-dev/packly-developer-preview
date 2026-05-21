@@ -1,0 +1,35 @@
+schema: 0
+id: security-guardrails
+name: Security Guardrails
+version: 0.1.0
+features:
+  - security
+  - release
+targets:
+  - generic
+files:
+  - from: files/PACK.md
+    to: .packly/samples/security-guardrails.md
+    mode: replace
+metadata:
+  context:
+    summary: Check secret, destructive file, dependency, updater, signing, and release-risk boundaries.
+    domains:
+      - security
+      - release
+      - operations
+    triggers:
+      - public release
+      - updater
+      - signing
+      - secrets
+      - destructive command
+      - dependency change
+    non_goals:
+      - recording secret values
+      - legal or account actions
+    context_budget: 2k
+    priority: 60
+    recommended_modules:
+      - files/PACK.md
+

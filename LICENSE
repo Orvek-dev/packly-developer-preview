@@ -1,0 +1,26 @@
+Packly Developer Preview License
+
+Copyright (c) 2026 Orvek-dev. All rights reserved.
+
+This repository distributes Packly Developer Preview documentation, sample Packs,
+installation scripts, and proprietary Packly CLI/MCP binary artifacts.
+
+Permission is granted to download, install, and use the Packly Developer Preview
+CLI and MCP binaries for personal, internal evaluation, and feedback purposes.
+Permission is also granted to copy and adapt the sample Packs in this repository
+inside your own workspaces.
+
+You may not sell, sublicense, publicly redistribute, or offer the Packly binaries
+as a hosted service without prior written permission from Orvek-dev. You may not
+remove copyright, license, or attribution notices. Reverse engineering,
+decompilation, or disassembly is not permitted except where applicable law
+requires that such restriction be unenforceable.
+
+The Packly Developer Preview is provided "as is", without warranty of any kind,
+express or implied, including but not limited to warranties of merchantability,
+fitness for a particular purpose, and noninfringement. In no event shall the
+copyright holder be liable for any claim, damages, or other liability arising
+from use of the Developer Preview.
+
+This license does not grant rights to Packly source code, trademarks, production
+services, signing keys, update infrastructure, or any private Packly repository.
