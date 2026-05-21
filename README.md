@@ -1,8 +1,44 @@
 # Packly Developer Preview
 
-Packly Developer Preview distributes the Packly CLI and Packly Context Router MCP server for early users who want to reduce repeated `CLAUDE.md`, `AGENTS.md`, skills, and rules copy-paste across AI coding tools.
+Stop bloating `CLAUDE.md` and `AGENTS.md`.
+
+Packly is a local CLI + stdio MCP context router for Claude Code, Codex, and Cursor. It helps AI coding agents find, activate, and read the right Pack only when needed, instead of stuffing every rule, role, skill, and workflow into one always-loaded instruction file.
 
 This repository is the public distribution and feedback channel. The product source repository remains private during the Developer Preview.
+
+## Why Packly?
+
+AI coding workspaces are starting to accumulate:
+
+- long `CLAUDE.md` / `AGENTS.md` files
+- copied rules, roles, and skill prompts
+- duplicated agent instructions across projects
+- unclear ownership of generated framework files
+- no easy rollback when an agent setup changes
+
+Packly turns reusable instructions and framework files into Packs. The local MCP server lets agents discover and read approved Pack context, while the CLI owns file changes, snapshots, drift checks, and rollback.
+
+```text
+Pack template -> Workspace installation -> Managed files -> Health state -> Safe action
+```
+
+## Quickstart
+
+Homebrew is recommended on macOS Apple Silicon and Linux x64:
+
+```sh
+brew tap Orvek-dev/packly
+brew install packly
+packly --version
+packly mcp status --mcp-bin packly-mcp
+packly mcp readiness --no-workspace --mcp-bin packly-mcp
+```
+
+Then connect Packly MCP to Claude Code, Codex, or Cursor:
+
+```sh
+packly mcp config --client all --mcp-bin packly-mcp
+```
 
 ## What You Install
 
@@ -22,6 +58,7 @@ Claude / Codex / Cursor
 
 - Version: `v0.59.1`
 - Status: Developer Preview / prerelease
+- Website: https://usepackly.com
 - Binary artifacts:
   - macOS Apple Silicon (`aarch64-apple-darwin`)
   - Linux x64 (`x86_64-unknown-linux-gnu`)
@@ -29,13 +66,12 @@ Claude / Codex / Cursor
 - Source code: not published in this distribution repository
 - License: Packly Developer Preview License
 
-## Install
+## Other Install Paths
 
-Homebrew on macOS Apple Silicon or Linux x64:
+Direct Homebrew formula install:
 
 ```sh
-brew tap Orvek-dev/packly
-brew install packly
+brew install Orvek-dev/packly/packly
 ```
 
 Install script for macOS Apple Silicon or Linux x64:
@@ -101,7 +137,7 @@ packly mcp install-client --client cursor --mcp-bin "$HOME/.packly/bin/packly-mc
 
 ## Try A Sample Pack
 
-Import one sample Pack:
+Import a sample Pack, then ask your MCP client to route a real coding task through it:
 
 ```sh
 packly pack import-url https://github.com/Orvek-dev/packly-developer-preview/tree/main/packs/small-pr-planner
@@ -176,6 +212,14 @@ release asset SHA-256 values, and the shell installer pins the release checksum
 manifest digest for the default release.
 
 ## Feedback
+
+The Developer Preview is looking for concrete workflow feedback:
+
+- Did install complete?
+- Did `packly mcp status` pass?
+- Did your client see Packly MCP tools?
+- Where did Pack discovery, activation, or context reading feel unclear?
+- Did you still need to paste `CLAUDE.md`, `AGENTS.md`, skills, or rules manually?
 
 Do not paste source code, secret values, `.env` files, private Pack contents, or raw AI conversations into issues.
 
