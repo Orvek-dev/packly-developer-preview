@@ -10,8 +10,20 @@ artifacts should not be used.
 
 ## Verification
 
-The install script pins the SHA-256 digest of the release `checksums.txt` file
-for the default repository and version. It then verifies the downloaded archive
+Use the release-pinned installer URL for the public Developer Preview:
+
+```sh
+https://github.com/Orvek-dev/packly-developer-preview/releases/download/v0.59.1/install.sh
+```
+
+The `v0.59.1` installer script SHA-256 is:
+
+```text
+e82cdfa51febebcc38fa8c97631751c22c64265d7c1b0ada4996cf1b3709d032  install.sh
+```
+
+The install script pins the SHA-256 digest of the release `checksums.txt` file for
+the default repository and version. It then verifies the downloaded archive
 against the matching entry in that checksum file.
 
 If you override `PACKLY_REPO` or `PACKLY_VERSION`, you must also set
