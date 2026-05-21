@@ -11,10 +11,19 @@ brew tap Orvek-dev/packly
 brew install packly
 ```
 
-Install script alternative:
+Release-pinned install script alternative:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/Orvek-dev/packly-developer-preview/main/install.sh | sh
+curl -fsSL https://github.com/Orvek-dev/packly-developer-preview/releases/download/v0.59.1/install.sh | sh
+export PATH="$HOME/.packly/bin:$PATH"
+```
+
+Optional installer script verification:
+
+```sh
+curl -fsSLO https://github.com/Orvek-dev/packly-developer-preview/releases/download/v0.59.1/install.sh
+printf '%s  %s\n' 'e82cdfa51febebcc38fa8c97631751c22c64265d7c1b0ada4996cf1b3709d032' 'install.sh' | shasum -a 256 -c -
+sh install.sh
 export PATH="$HOME/.packly/bin:$PATH"
 ```
 

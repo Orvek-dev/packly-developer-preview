@@ -74,16 +74,24 @@ Direct Homebrew formula install:
 brew install Orvek-dev/packly/packly
 ```
 
-Install script for macOS Apple Silicon or Linux x64:
+Release-pinned install script for macOS Apple Silicon or Linux x64:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/Orvek-dev/packly-developer-preview/main/install.sh
+curl -fsSL https://github.com/Orvek-dev/packly-developer-preview/releases/download/v0.59.1/install.sh
 ```
 
 Install:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/Orvek-dev/packly-developer-preview/main/install.sh | sh
+curl -fsSL https://github.com/Orvek-dev/packly-developer-preview/releases/download/v0.59.1/install.sh | sh
+```
+
+Optional installer script verification:
+
+```sh
+curl -fsSLO https://github.com/Orvek-dev/packly-developer-preview/releases/download/v0.59.1/install.sh
+printf '%s  %s\n' 'e82cdfa51febebcc38fa8c97631751c22c64265d7c1b0ada4996cf1b3709d032' 'install.sh' | shasum -a 256 -c -
+sh install.sh
 ```
 
 Add Packly to your shell if the installer asks:
@@ -94,8 +102,8 @@ export PATH="$HOME/.packly/bin:$PATH"
 
 Windows x64 users can download the zip from the [v0.59.1 release](https://github.com/Orvek-dev/packly-developer-preview/releases/tag/v0.59.1), verify it against `checksums.txt`, and add the extracted directory to `PATH`. The shell installer also supports Git Bash/MSYS/Cygwin environments.
 
-The installer verifies a pinned SHA-256 digest for the default `v0.59.1`
-`checksums.txt` before verifying the selected archive. See
+The release-pinned installer verifies a pinned SHA-256 digest for the default
+`v0.59.1` `checksums.txt` before verifying the selected archive. See
 [docs/integrity.md](docs/integrity.md).
 
 Verify:
