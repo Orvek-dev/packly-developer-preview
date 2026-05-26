@@ -1,26 +1,59 @@
+<p align="center">
+  <img src="./assets/packly-readme-banner.png" width="920" alt="Packly banner: Stop bloating CLAUDE.md and AGENTS.md." />
+</p>
+
+<p align="center">
+  <a href="https://github.com/Orvek-dev/packly-developer-preview/releases/tag/v0.59.1"><img alt="Packly v0.59.1" src="https://img.shields.io/badge/Packly-v0.59.1-5865f2"></a>
+  <a href="./LICENSE"><img alt="Packly Developer Preview License" src="https://img.shields.io/badge/license-developer%20preview-111827"></a>
+  <img alt="Local CLI" src="https://img.shields.io/badge/local-CLI-2ea44f">
+  <img alt="stdio MCP" src="https://img.shields.io/badge/MCP-stdio%20server-8250df">
+  <img alt="Claude Code" src="https://img.shields.io/badge/Claude%20Code-ready-f97316">
+  <img alt="Codex" src="https://img.shields.io/badge/Codex-ready-0ea5e9">
+  <img alt="Cursor" src="https://img.shields.io/badge/Cursor-ready-111827">
+</p>
+
 # Packly Developer Preview
 
-Stop bloating `CLAUDE.md` and `AGENTS.md`.
-
-Packly is a local CLI + stdio MCP context router for Claude Code, Codex, and Cursor. It helps AI coding agents find, activate, and read the right Pack only when needed, instead of stuffing every rule, role, skill, and workflow into one always-loaded instruction file.
+Packly installs a local CLI and stdio MCP server for Claude Code, Codex, and Cursor. Your agent finds, activates, and reads the right Pack only when needed, instead of stuffing every rule, role, skill, and workflow into one always-loaded `CLAUDE.md` or `AGENTS.md`.
 
 This repository is the public distribution and feedback channel. The product source repository remains private during the Developer Preview.
 
+## Overview
+
+| Surface | What it does | Why it helps |
+| --- | --- | --- |
+| Pack | Reusable instructions, workflows, and framework files. | Keeps agent context modular instead of pasted into every project. |
+| `packly` | Local CLI for install/update/disable/rollback, readiness checks, snapshots, and drift checks. | File changes stay explicit, inspectable, and reversible. |
+| `packly-mcp` | Local stdio MCP server for Claude Code, Codex, and Cursor. | Agents discover and read the right Pack context at task time. |
+| Sample Packs | `small-pr-planner`, `review-loop`, and `security-guardrails`. | Gives you working examples without exposing the private product source. |
+| Preview channel | Public docs, release artifacts, sample Packs, and feedback. | Lets users test the workflow before the stable product ships. |
+
 ## Why Packly?
 
-AI coding workspaces are starting to accumulate:
+AI coding workspaces are starting to accumulate long `CLAUDE.md` / `AGENTS.md` files, copied rules, duplicated roles, generated framework files, and unclear rollback paths. Packly moves that material into Packs, then lets the agent retrieve only the Pack context that matches the current task.
 
-- long `CLAUDE.md` / `AGENTS.md` files
-- copied rules, roles, and skill prompts
-- duplicated agent instructions across projects
-- unclear ownership of generated framework files
-- no easy rollback when an agent setup changes
+## How It Works
 
-Packly turns reusable instructions and framework files into Packs. The local MCP server lets agents discover and read approved Pack context, while the CLI owns file changes, snapshots, drift checks, and rollback.
-
-```text
-Pack template -> Workspace installation -> Managed files -> Health state -> Safe action
+```mermaid
+flowchart LR
+  A["Reusable rules and workflows"] --> B["Packly Packs"]
+  B --> C["packly CLI"]
+  B --> D["packly-mcp"]
+  C --> E["Install, snapshot, drift check, rollback"]
+  D --> F["Discover, activate, read Pack context"]
+  F --> G["Claude Code / Codex / Cursor"]
+  E --> H["Workspace stays inspectable"]
+  G --> I["Agent reads only the right Pack"]
 ```
+
+## Docs
+
+| Document | Use it for |
+| --- | --- |
+| [Quickstart](docs/quickstart.md) | Install Packly, connect MCP, and import a sample Pack. |
+| [Safety](docs/safety.md) | Understand what MCP can read, plan, and request. |
+| [Integrity](docs/integrity.md) | Verify release-pinned installer and archive checksums. |
+| [Feedback](docs/feedback.md) | Report install, MCP, and Pack routing issues safely. |
 
 ## Quickstart
 
